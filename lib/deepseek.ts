@@ -4,7 +4,7 @@ import OpenAI from 'openai';
 const DEEPSEEK_API_BASE = process.env.DEEPSEEK_API_BASE || 'https://api.deepseek.com';
 const DEEPSEEK_MODEL = process.env.DEEPSEEK_MODEL || 'deepseek-reasoner';
 
-// Create OpenAI-compatible client for DeepSeek
+// Create OpenAI-compatible client for DeepSeek (or OpenRouter)
 export function createDeepSeekClient(): OpenAI {
   const apiKey = process.env.DEEPSEEK_API_KEY;
 
@@ -12,9 +12,16 @@ export function createDeepSeekClient(): OpenAI {
     throw new Error('DEEPSEEK_API_KEY environment variable is not set');
   }
 
+  // Check if using OpenRouter
+  const isOpenRouter = DEEPSEEK_API_BASE.includes('openrouter.ai');
+
   return new OpenAI({
     apiKey,
     baseURL: DEEPSEEK_API_BASE,
+    defaultHeaders: isOpenRouter ? {
+      'HTTP-Referer': 'https://deepseek-chatbot.vercel.app',
+      'X-Title': 'DeepSeek Chatbot',
+    } : undefined,
   });
 }
 
