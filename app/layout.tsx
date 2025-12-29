@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -6,14 +6,18 @@ export const metadata: Metadata = {
   description: 'An intelligent chatbot powered by DeepSeek R1 API, providing comprehensive information about Pochy books and general knowledge.',
   keywords: ['chatbot', 'DeepSeek', 'AI', 'Pochy books', 'knowledge base'],
   authors: [{ name: 'DeepSeek Chatbot' }],
-  viewport: 'width=device-width, initial-scale=1',
+  icons: {
+    icon: '/favicon.ico',
+  },
+};
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
   themeColor: [
     { media: '(prefers-color-scheme: light)', color: '#ffffff' },
     { media: '(prefers-color-scheme: dark)', color: '#0f172a' },
   ],
-  icons: {
-    icon: '/favicon.ico',
-  },
 };
 
 export default function RootLayout({
